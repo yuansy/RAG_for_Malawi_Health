@@ -1,6 +1,5 @@
 import re
 
-import httpx
 from sentence_transformers import CrossEncoder
 from langchain_ollama import OllamaLLM
 from langchain_core.prompts import PromptTemplate
@@ -132,11 +131,6 @@ def generate(query, top_docs, llm, print_llm=False):
     # 2. Generate Answer
     try:
         answer = llm.invoke(formatted_prompt)
-    except httpx.ConnectError:
-        raise RuntimeError(
-            "[ERROR] Ollama server is not running. "
-            "Start it with: ollama serve"
-        )
     except Exception as e:
         raise RuntimeError(f"[ERROR] Generation failed: {e}")
 
